@@ -36,6 +36,9 @@ def run(file_path: str):
         print("Erro: Verifique se as variáveis PROJECT_ID, OCR_PROCESSOR_ID e GEMINI_API_KEY estão no arquivo .env")
         return
 
+    # Garante que o diretório de saída exista
+    os.makedirs("output", exist_ok=True)
+
     try:
         # 2. Instancia os Serviços
         ocr_service = GoogleDocumentOcr(PROJECT_ID, LOCATION, OCR_PROCESSOR_ID)
@@ -49,7 +52,8 @@ def run(file_path: str):
             return
 
         # salva o texto bruto para depuracao
-        base_name = os.path.splitext(file_path)[0]
+        file_name_only = os.path.basename(file_path)
+        base_name = os.path.splitext(file_name_only)[0]
         with open(f"output/{base_name}_ocr_output.txt", 'w', encoding='utf-8') as f:
             f.write(extracted_text)
             
@@ -74,5 +78,5 @@ def run(file_path: str):
 
 
 if __name__ == '__main__':
-    pdf_to_process = r'examples\nota-fiscal-notebook-dell.pdf' 
+    pdf_to_process = r'C:/Users/renat/OneDrive/Área de Trabalho/estudos/ocr_documentAI/examples/NF_SIMPLES.pdf'
     run(pdf_to_process)

@@ -68,3 +68,27 @@ class GoogleDocumentOcr:
         except Exception as e:
             print(f"Ocorreu um erro durante o OCR no Document AI: {e}")
             return None
+
+    def extract_text_from_gcs_uri(self, gcs_uri: str, mime_type: str = "application/pdf") -> Optional[str]:
+        """
+        Processa um documento a partir de um URI do Google Cloud Storage (GCS).
+        
+        ### Parâmetros:
+        - gcs_uri: O URI do arquivo no GCS (ex: 'gs://bucket_name/file_name.pdf').
+        - mime_type: O tipo MIME do arquivo. Padrão é 'application/pdf'.
+        """
+        if not gcs_uri.startswith("gs://"):
+            raise ValueError("Invalid GCS URI. It must start with 'gs://'.")
+
+        try:
+            gcs_document = documentai.GcsDocument(gcs_uri=gcs_uri, mime_type=mime_type)
+            request = documentai.ProcessRequest(name=self.processor_name, gcs_document=gcs_document)
+
+            print(f"Iniciando OCR no documento do GCS '{gcs_uri}'...")
+            result = self.client.process_document(request=request)
+            
+            return result.document.text
+
+        except Exception as e:
+            print(f"Ocorreu um erro durante o OCR no Document AI para o GCS URI '{gcs_uri}': {e}")
+            return None
