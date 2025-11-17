@@ -168,3 +168,10 @@ curl -X 'POST' \
 ```
 
 A API retornará um JSON com os dados extraídos em caso de sucesso.
+
+
+# *Referência:*
+
+## Para esse projeto tive como referência técnica esse vídeo, do canal do Gregory
+
+https://youtu.be/cb0_xsK9wzE?t=175
