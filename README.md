@@ -73,7 +73,7 @@ Antes de começar, garanta que você tenha os seguintes pré-requisitos:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/seu-usuario/gemini-document-ai-ocr.git
+    git clone https://github.com/seu-usuario/gemini-document-ai-ocr-gcp.git
     cd gemini-document-ai-ocr
     ```
 
